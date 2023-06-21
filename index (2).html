@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battle Simulator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  
+</head>
+<body>
+    <div class="container">
+        <h1>Battle Simulator</h1>
+        <div class="army">
+            <h2>Army 1</h2>
+            <div id="army1"></div>
+            <button onclick="addFighter(1)">Add Fighter</button>
+        </div>
+        <div class="army">
+            <h2>Army 2</h2>
+            <div id="army2"></div>
+            <button onclick="addFighter(2)">Add Fighter</button>
+        </div>
+        <button onclick="startBattle()">Start Battle</button>
+        <canvas id="battlefield"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

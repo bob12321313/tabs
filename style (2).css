@@ -1,0 +1,20 @@
+.container {
+    text-align: center;
+}
+
+.army {
+    display: inline-block;
+    margin: 10px;
+}
+
+.army h2 {
+    margin-bottom: 5px;
+}
+
+.army button {
+    margin-top: 5px;
+}
+
+.army-canvas {
+    border: 1px solid #ccc;
+}
