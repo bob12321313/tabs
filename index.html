@@ -1,27 +1,115 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Battle Simulator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-  
-</head>
-<body>
-    <div class="container">
-        <h1>Battle Simulator</h1>
-        <div class="army">
-            <h2>Army 1</h2>
-            <div id="army1"></div>
-            <button onclick="addFighter(1)">Add Fighter</button>
-        </div>
-        <div class="army">
-            <h2>Army 2</h2>
-            <div id="army2"></div>
-            <button onclick="addFighter(2)">Add Fighter</button>
-        </div>
-        <button onclick="startBattle()">Start Battle</button>
-        <canvas id="battlefield"></canvas>
-    </div>
 
-    <script src="script.js"></script>
+<head>
+  <style>
+    #box {
+      width: 500px;
+      height: 500px;
+      background-color: black;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #invaders {
+      transform: rotateX(180deg);
+      background-image: url('enemy.png');
+      background-size: cover;
+      background-position: center;
+      width: 150px;
+      height: 150px;
+      position: absolute;
+    }
+
+    #player {
+      background-image: url('player.png');
+      background-size: cover;
+      background-position: center;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 475px;
+      left: 250px;
+      transform: translate(-50%, -50%);
+      transition: left 0.1s linear;
+    }
+
+    @keyframes move {
+      0% {
+        transform: translateY(-200px);
+      }
+
+      100% {
+        transform: translateY(500px);
+      }
+    }
+
+    .start {
+      animation: move 1s linear infinite;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div id="box">
+    <div id="invaders"></div>
+    <div id="player"></div>
+  </div>
+
+  <script>
+    const thing = document.getElementById('invaders');
+    const box = document.getElementById('box');
+    var player = document.getElementById('player');
+    var leftArrow = 37;
+    var rightArrow = 39;
+    let speed = 30;
+
+
+    function spawn(times) {
+
+      let t = times;
+      let position = Math.floor(Math.random() * 451);
+      thing.style.left = position + 'px';
+
+      if (t > 0) {
+        thing.classList.add('start');
+        t--;
+
+        setTimeout(function () {
+          thing.classList.remove('start');
+          spawn(t)
+        }, 1000);
+      } else {
+        thing.remove();
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.keyCode === leftArrow) {
+        moveDiv('left');
+      } else if (event.keyCode === rightArrow) {
+        moveDiv('right');
+      }
+    });
+
+    function moveDiv(direction) {
+      var leftPosition = parseInt(player.style.left) || 250;
+
+      if (direction === 'left') {
+        player.style.left = leftPosition - speed + 'px';
+      } else if (direction === 'right') {
+        player.style.left = leftPosition + speed + 'px';
+      }
+    }
+
+
+
+
+    spawn(5);
+
+  </script>
 </body>
+
 </html>
