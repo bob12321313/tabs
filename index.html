@@ -47,6 +47,23 @@
     .start {
       animation: move 1s linear infinite;
     }
+    #bullet {
+      background-color: blue;
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 475px;
+      left: 250px;
+      transform: translate(-50%, -50%);
+      top: 600px;
+    }
+    .shoot {
+      animation: fire 1s linear infinite;
+    }
+    @keyframes fire {
+      0% {transform: translateY(475px);}
+      100% {transform: translateY(-30px);}
+    }
   </style>
 
 
@@ -56,14 +73,17 @@
   <div id="box">
     <div id="invaders"></div>
     <div id="player"></div>
+    <div id="bullet"></div>
   </div>
 
   <script>
     const thing = document.getElementById('invaders');
     const box = document.getElementById('box');
     var player = document.getElementById('player');
+    var bullet = document.getElementById('bullet');
     var leftArrow = 37;
     var rightArrow = 39;
+    var space = 0;
     let speed = 30;
 
 
@@ -91,6 +111,8 @@
         moveDiv('left');
       } else if (event.keyCode === rightArrow) {
         moveDiv('right');
+      } else if (event.keyCode === space) {
+        fire();
       }
     });
 
@@ -104,6 +126,17 @@
       }
     }
 
+    function fire() {
+      bullet.classList.add('shoot');
+
+        setTimeout(function () {
+          bullet.classList.remove('shoot');
+          fire();
+        }, 1000);
+      } else {
+        bullet.remove();
+      }
+    }
 
 
 
